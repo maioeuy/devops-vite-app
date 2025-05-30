@@ -37,7 +37,7 @@ jobs:
     - name: Trigger Render Deploy Hook
       # This step sends a POST request to your Render Deploy Hook URL
       env:
-        RENDER_DEPLOY_HOOK_URL: ${{ secrets.RENDER_DEPLOY_HOOK_URL }} # GitHub Secret for Render Deploy Hook URL
+        RENDER_DEPLOY_HOOK_URL: ${{ secrets.RENDER_DEPLOY_HOOK }} # GitHub Secret for Render Deploy Hook URL
       run: |
         echo "Triggering Render deploy for codebind945/myapp:latest..."
         curl -X POST "$RENDER_DEPLOY_HOOK_URL"
