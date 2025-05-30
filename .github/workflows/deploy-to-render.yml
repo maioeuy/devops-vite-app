@@ -27,7 +27,7 @@ jobs:
 
     - name: Build and push Docker image
       # This action builds your Docker image and pushes it to Docker Hub
-      uses: docker/build-and-push-action@v5
+      uses: docker/build-and-push-action@v4
       with:
         context: . # The path to your Dockerfile ('.' means current directory)
         push: true # Push the image to the registry
