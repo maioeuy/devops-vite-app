@@ -1,43 +1,42 @@
-# .github/workflows/deploy-to-render.yml
 name: Build, Push, and Deploy to Render
 
 on:
   push:
     branches:
-      - main # This workflow runs when you push to the 'main' branch
+      - main 
 
 jobs:
   build-push-deploy:
-    runs-on: ubuntu-latest # The type of machine to run the job on
+    runs-on: ubuntu-latest 
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v4 # Action to check out your repository code
+      uses: actions/checkout@v4 
 
     - name: Set up Docker Buildx
-      # This action sets up Buildx, which provides enhanced Docker build capabilities
+      
       uses: docker/setup-buildx-action@v3
 
     - name: Log in to Docker Hub
-      # This action logs into Docker Hub using your credentials
+      
       uses: docker/login-action@v3
       with:
-        username: ${{ secrets.DOCKER_USERNAME }} # GitHub Secret for Docker Hub username
-        password: ${{ secrets.DOCKER_PASSWORD }} # GitHub Secret for Docker Hub Personal Access Token
+        username: ${{ secrets.DOCKER_USERNAME }} 
+        password: ${{ secrets.DOCKER_PASSWORD }} 
 
     - name: Build and push Docker image
-      # This action builds your Docker image and pushes it to Docker Hub
+      
       uses: docker/build-push-action@v4
       with:
-        context: . # The path to your Dockerfile ('.' means current directory)
-        push: true # Push the image to the registry
-        tags: codebind945/myapp:latest # The image name and tag
-        platforms: linux/amd64 # Important: Build for Linux AMD64 architecture compatible with Render
+        context: . 
+        push: true 
+        tags: codebind945/myapp:latest 
+        platforms: linux/amd64 
 
     - name: Trigger Render Deploy Hook
-      # This step sends a POST request to your Render Deploy Hook URL
+      
       env:
-        RENDER_DEPLOY_HOOK_URL: ${{ secrets.RENDER_DEPLOY_HOOK }} # GitHub Secret for Render Deploy Hook URL
+        RENDER_DEPLOY_HOOK_URL: ${{ secrets.RENDER_DEPLOY_HOOK }} 
       run: |
         echo "Triggering Render deploy for codebind945/myapp:latest..."
         curl -X POST "$RENDER_DEPLOY_HOOK_URL"

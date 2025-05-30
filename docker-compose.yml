@@ -1,18 +1,16 @@
-version: '3.8' # Using a recent stable version
+version: '3.8' 
 
 services:
   react-nginx-app:
-    # stdin_open: true # Not typically needed for a production web server
+    
     build:
       context: .
       dockerfile: Dockerfile
     ports:
-      # Map host port 5173 (for browser access) to container port 80 (where Nginx serves)
+
       - "5173:80"
     environment:
     
        - CHOKIDAR_USEPOLLING=true
-      # - MY_ENV_VAR=some_value
   
-      # - NGINX_ROOT=/usr/share/nginx/html # Example of an env var for Nginx if you customize.
-    restart: always # Ensures the container restarts if it crashes
+    restart: always
