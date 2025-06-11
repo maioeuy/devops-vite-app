@@ -30,7 +30,7 @@ jobs:
       with:
         context: . 
         push: true 
-        tags: codebind945/myapp:latest 
+        tags: codebind945/react-vite:v1.0  
         platforms: linux/amd64 
 
     - name: Trigger Render Deploy Hook
@@ -38,6 +38,6 @@ jobs:
       env:
         RENDER_DEPLOY_HOOK_URL: ${{ secrets.RENDER_DEPLOY_HOOK }} 
       run: |
-        echo "Triggering Render deploy for codebind945/myapp:latest..."
+        echo "Triggering Render deploy for codebind945/react-vite:v1.0..."
         curl -X POST "$RENDER_DEPLOY_HOOK_URL"
         echo "Render deploy triggered successfully!"
